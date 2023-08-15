@@ -34,7 +34,7 @@ When timeBucket is 0, we want priceChange to be 0, so that the returned price wo
 
 However, with the incorrect implementation, the returned price would be different than real price by a value equal to `scalingFactor - 1`. The image below shows the difference between the right and wrong formula when initialPrice is 100 and scalingFactor is 11. The right formula starts at 100 while the wrong one starts at 110=100+11-1
 
-![newplot (11)](https://github.com/sherlock-audit/2023-06-Index-bizzyvinci/assets/22333930/56cfc3e4-2bca-40d3-99bd-9e02df94bf33)
+![253827539-56cfc3e4-2bca-40d3-99bd-9e02df94bf33](https://github.com/sherlock-audit/2023-06-Index-judging/assets/1225563/5256c121-a35d-4ce0-8740-15b7eef42109)
 
 
 
