@@ -132,6 +132,10 @@ The changes are to
 2) Reset the `raiseTargetPercentage` on every `unlock()` call https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L414
 
 
+**IAm0x52**
+
+Fix looks good. Manger can now set `raiseTargetPercentage` to 0 directly. Additionally it will also be set to zero when the auction unlocks.
+
 # Issue M-2: price is calculated wrongly in BoundedStepwiseExponentialPriceAdapter 
 
 Source: https://github.com/sherlock-audit/2023-06-Index-judging/issues/39 
@@ -286,6 +290,10 @@ Escalation status:
 The remediation for this issue is open for review here https://github.com/IndexCoop/index-protocol/pull/25
 
 The fix to the formula is here: https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/integration/auction-price/BoundedStepwiseExponentialPriceAdapter.sol#L73
+
+**IAm0x52**
+
+Fix looks good. `scalingFactor` is now applied via `wadMul` which fixes this order of operation issue.
 
 # Issue M-3: No check for sequencer uptime can lead to dutch auctions executing at bad prices 
 
@@ -723,6 +731,10 @@ The remediation for this issue is open for review here https://github.com/IndexC
 The changes are to allow users to specify `type(uint256.max)` to settle the remaining auction https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L811-L817
 
 
+**IAm0x52**
+
+Fix looks good. User can now set `_componentQuantity` to `type(uint256.max)` to buy the entire amount remaining
+
 # Issue M-5: Exponential and logarithmic price adapters will return incorrect pricing when moving from higher dp token to lower dp token 
 
 Source: https://github.com/sherlock-audit/2023-06-Index-judging/issues/42 
@@ -985,6 +997,10 @@ The remediation for this issue is open for review here https://github.com/IndexC
 The changes are to update to 18 decimal `scalingFactor` in both the exponential and logarithmic adapter
 + https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/integration/auction-price/BoundedStepwiseExponentialPriceAdapter.sol#L73
 + https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/integration/auction-price/BoundedStepwiseLogarithmicPriceAdapter.sol#L73
+
+**IAm0x52**
+
+Fix looks good. `scalingFactor` is now applied via mulWad
 
 # Issue M-6: Target raises can be highly damaging for dutch auctions with multiple components 
 
@@ -1539,4 +1555,12 @@ The remediation for this issue is open for review here https://github.com/IndexC
 The changes are to add warnings to use a supply cap in order to avoid large front running issuance and redemption
 + https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L48-L51
 + https://github.com/IndexCoop/index-protocol/blob/839a6c699cc9217c8ee9f3b67418c64e80f0e10d/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L239
+
+**IAm0x52**
+
+Sponsor has not made any changes to the smart contract but acknowledges this scenario and expects manager (trusted party) to set appropriate supply caps to prevent this.
+
+**MLON33**
+
+Confirming no changes to the smart contract. Classified as acknowledged instead of fixed.
 
